@@ -1,0 +1,14 @@
+﻿@page "/Login2"
+
+@code {
+
+    [Inject] public NavigationManager NavManager { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        NavManager.NavigateTo("https://efilec2cdev.b2clogin.com/efilec2cdev.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_SignUpSignIn&client_id=b770840b-2047-46c6-8d55-09aa23cb6bbe&nonce=defaultNonce&redirect_uri=https%3A%2F%2Flocalhost%3A44318%2Ftokenreceiver&scope=openid&response_type=id_token&prompt=login");
+    }
+
+}

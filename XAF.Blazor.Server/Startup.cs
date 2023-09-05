@@ -70,7 +70,8 @@ public class Startup {
                 });
         });
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => {
-            options.LoginPath = "/LoginPage";
+            //options.LoginPath = "/LoginPage";
+            options.LoginPath = "/Login2";
         });
     }
 

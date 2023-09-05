@@ -1,0 +1,29 @@
+﻿@page "/tokenreceiver"
+@using System.Web;
+
+<h3>Received ID Token:</h3>
+<p>@IdToken</p>
+
+
+@code {
+
+  
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    private string IdToken { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Get the URL fragment from the NavigationManager
+        string urlFragment = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Fragment;
+
+        // Parse the URL fragment and extract query parameters
+        var queryParams = HttpUtility.ParseQueryString(urlFragment);
+
+        // Retrieve the ID token from the query parameters
+        IdToken = queryParams["#id_token"];
+    }
+    
+
+}

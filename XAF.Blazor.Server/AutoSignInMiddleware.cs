@@ -14,6 +14,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using XAF.Module.BusinessObjects;
 using DevExpress.ExpressApp.Security.Authentication.Internal;
+using System.Text;
+
 namespace XAF.Blazor.Server
 {
     public class AutoSignInMiddleware
@@ -27,9 +29,7 @@ namespace XAF.Blazor.Server
         }
         private static async Task SignIn(HttpContext context, PermissionPolicyUser user, string userName)
         {
-
-
-           
+                     
 
             var identityCreator = context.RequestServices.GetRequiredService<IStandardAuthenticationIdentityCreator>();
             ClaimsIdentity id = identityCreator.CreateIdentity(user.Oid.ToString(),user.UserName);
@@ -46,6 +46,41 @@ namespace XAF.Blazor.Server
         }
         public async Task Invoke(HttpContext context)
         {
+
+            var request = context.Request;
+
+            
+
+            // Get the URL from the HttpRequest object
+            string url = $"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}";
+
+
+            // Checking whether this is a callback request from Azure B2C
+            if (request.Path.StartsWithSegments(new PathString("/your-callback-endpoint")))
+            {
+                if (request.Method == HttpMethods.Get)
+                {
+                    // For GET requests (e.g., in OAuth2 Authorization Code flow)
+                    var authorizationCode = request.Query["code"].ToString();
+                    var state = request.Query["state"].ToString();
+
+                    // Do something with the authorizationCode and state
+                }
+                else if (request.Method == HttpMethods.Post)
+                {
+                    // For POST requests, you would read from the form body
+                    if (request.HasFormContentType)
+                    {
+                        var form = await request.ReadFormAsync();
+                        var someValue = form["someKey"];
+
+                        // Do something with the form data
+                    }
+                }
+
+                // You can also inspect headers, cookies, etc.
+            }
+
             string userId = context.Request.Query["UserID"];
             Guid userOid = Guid.Empty;
             ApplicationUser myUser = null;
