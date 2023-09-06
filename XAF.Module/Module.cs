@@ -13,16 +13,18 @@ using DevExpress.ExpressApp.Model.DomainLogics;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Xpo;
 using DevExpress.ExpressApp.Xpo;
+using XAF.Module.BusinessObjects;
 
 namespace XAF.Module;
 
 // For more typical usage scenarios, be sure to check out https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.ModuleBase.
 public sealed class XAFModule : ModuleBase {
     public XAFModule() {
-		// 
-		// XAFModule
-		// 
-		AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifference));
+        // 
+        // XAFModule
+        // 
+        AdditionalExportedTypes.Add(typeof(ApplicationUser));
+        AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifference));
 		AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.ModelDifferenceAspect));
 		RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
 		RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));

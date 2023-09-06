@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Xpo;
 using XAF.Blazor.Server.Services;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.ExpressApp.Core;
+using XAF.Blazor.Server.Services.TokenSettings;
 
 namespace XAF.Blazor.Server;
 
@@ -24,6 +25,9 @@ public class Startup {
     public void ConfigureServices(IServiceCollection services) {
         services.AddSingleton(typeof(Microsoft.AspNetCore.SignalR.HubConnectionHandler<>), typeof(ProxyHubConnectionHandler<>));
 
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddSingleton<IUserPayloadService, UserPayloadService>();
+        
         services.AddRazorPages();
         services.AddServerSideBlazor();
         services.AddHttpContextAccessor();
@@ -70,8 +74,8 @@ public class Startup {
                 });
         });
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => {
-            //options.LoginPath = "/LoginPage";
-            options.LoginPath = "/Login2";
+            options.LoginPath = "/LoginPage";
+            //options.LoginPath = "/Login2";
         });
     }
 
