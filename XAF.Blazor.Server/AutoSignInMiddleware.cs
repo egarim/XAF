@@ -72,7 +72,7 @@ namespace XAF.Blazor.Server
                     using (XPObjectSpaceProvider directProvider = new XPObjectSpaceProvider(configuration.GetConnectionString("ConnectionString")))
                     using (IObjectSpace directObjectSpace = directProvider.CreateObjectSpace())
                     {
-                        if (!resultUser.NewUser)
+                        if (resultUser.NewUser)
                         {
                             //myUser = directObjectSpace.CreateObject<ApplicationUser>();
                             //myUser.UserName = userName;

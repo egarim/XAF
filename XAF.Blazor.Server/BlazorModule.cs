@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.DomainLogics;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Persistent.BaseImpl;
+using XAF.Module.Controllers;
 
 namespace XAF.Blazor.Server;
 
@@ -32,5 +33,10 @@ public sealed class XAFBlazorModule : ModuleBase {
         base.Setup(application);
         //application.CreateCustomModelDifferenceStore += Application_CreateCustomModelDifferenceStore;
         application.CreateCustomUserModelDifferenceStore += Application_CreateCustomUserModelDifferenceStore;
+        application.CreateCustomLogonWindowControllers += application_CreateCustomLogonWindowControllers;
+    }
+    private void application_CreateCustomLogonWindowControllers(object sender, CreateCustomLogonWindowControllersEventArgs e)
+    {
+        e.Controllers.Add(((XafApplication)sender).CreateController<RedirectController>());
     }
 }
